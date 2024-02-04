@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+  mysql:
+    container_name: mysql_${DATABASE_NAME}
+    image: mysql
+    environment:
+      - MYSQL_DATABASE=${DATABASE_NAME}
+      - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}
+    ports:
+      - '${DATABASE_PORT}:${DATABASE_PORT}'
