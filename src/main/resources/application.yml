@@ -1,0 +1,16 @@
+spring:
+  config:
+    import: classpath:application-postgres.yml, classpath:application-rsa-keys.yml
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+
+logging:
+  level:
+    org:
+      springframework:
+        security: debug
