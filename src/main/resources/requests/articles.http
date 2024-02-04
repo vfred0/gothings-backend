@@ -1,0 +1,24 @@
+###
+POST http://localhost:8080/api/v1/articles/d374e34b-fcf7-4a16-9fc1-d841f318d137
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+
+{
+  "title": "Article 1",
+  "description": "Demo",
+  "category": "OFFICE_SUPPLIES",
+  "state": "PREOWNED",
+  "gender": "UNISEX",
+  "images": ["image1", "image2"]
+}
+
+###
+GET http://localhost:8080/api/v1/articles/9d42197d-5348-4936-9c6c-ce490a1e1f2a
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+DELETE http://localhost:8080/api/v1/articles/2337acb7-dee9-47b0-92f2-49cdc90bbcf2
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
