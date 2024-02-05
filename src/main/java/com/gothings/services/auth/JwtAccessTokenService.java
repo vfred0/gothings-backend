@@ -37,13 +37,12 @@ public class JwtAccessTokenService {
         int AMOUNT_TO_ADD = 1;
         return JwtClaimsSet
                 .builder()
-                .claim("scope", getRoles(userDetails))
+                .subject(userDetails.getUsername())
                 .claim("id", user.getId())
                 .claim("names", user.getNames())
-                .claim("photo", user.getPhoto())
+                .claim("scope", getRoles(userDetails))
                 .issuedAt(Instant.now())
                 .expiresAt(Instant.now().plus(AMOUNT_TO_ADD, ChronoUnit.DAYS))
-                .subject(userDetails.getUsername())
                 .build();
     }
 
