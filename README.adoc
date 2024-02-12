@@ -1,0 +1,20 @@
+= Gothings
+:toc:
+:toc-title: Contents
+
+== Introduction
+
+Project to practice and learn about Spring Boot and Docker.
+
+== Running the project
+
+First, you can edit `.env` file to set the environment variables.
+
+Then you can run the following command to start containers:
+
+[source, shell]
+----
+cd docker; docker-compose up
+----
+
+In localhost, you can access the application at `http://localhost:8080`.
