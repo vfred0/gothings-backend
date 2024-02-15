@@ -15,4 +15,7 @@ public interface IArticleService extends ICrudService<ArticleRequestDto, Article
 
     UUID save(UUID userId, ArticleRequestDto articleRequestDto);
 
+    List<ArticleResponseDto> findAll();
+
+    List<ArticleResponseDto> search(String title, Category category, State state, UUID userId);
 }

@@ -38,11 +38,34 @@ public class ArticleService extends CrudService<Article, ArticleRequestDto, Arti
     }
 
     @Override
+    public UUID update(UUID articleId, ArticleRequestDto articleRequestDto) {
+        Article article = this.articleRepository.findById(articleId).orElseThrow(() -> new NotFoundException(MessageException.ARTICLE_NOT_FOUND));
+        article.setTitle(articleRequestDto.getTitle());
+        article.setDescription(articleRequestDto.getDescription());
+        article.setCategory(articleRequestDto.getCategory());
+        article.setState(articleRequestDto.getState());
+        article.setGender(articleRequestDto.getGender());
+        article.setImages(articleRequestDto.getImages());
+        Article articleUpdated = this.articleRepository.save(article);
+        return articleUpdated.getId();
+    }
+
+    @Override
     public UUID save(UUID userId, ArticleRequestDto articleRequestDto) {
         User user = this.userRepository.findById(userId).orElseThrow(() -> new NotFoundException(MessageException.USER_NOT_FOUND));
         Article article = this.mapper.toEntity(articleRequestDto, Article.class);
         article.setUser(user);
         return this.articleRepository.save(article).getId();
+    }
+
+    @Override
+    public List<ArticleResponseDto> findAll() {
+        return this.mapper.toDtos(this.articleRepository.findAll(), ArticleResponseDto.class);
+    }
+
+    @Override
+    public List<ArticleResponseDto> search(String title, Category category, State state, UUID userId) {
+        return this.mapper.toDtos(this.articleRepository.findByTitleAndCategoryAndStateAndUserId(title, category, state, userId), ArticleResponseDto.class);
     }
 
     @Override

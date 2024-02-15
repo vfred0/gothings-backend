@@ -28,6 +28,12 @@ public class ArticleResource {
         return articleService.findById(articleId).map(articleDto -> new ResponseEntity<>(articleDto, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping
+    ResponseEntity<List<ArticleResponseDto>> findAll() {
+        return ResponseEntity.ok(articleService.findAll());
+    }
+
+
     @PostMapping("{userId}")
     ResponseEntity<HttpHeaders> save(@PathVariable UUID userId, @RequestBody ArticleRequestDto articleRequestDto) {
         UUID articleId = articleService.save(userId, articleRequestDto);
@@ -36,7 +42,6 @@ public class ArticleResource {
                 HttpStatus.CREATED
         );
     }
-
 
     @PutMapping("{articleId}")
     ResponseEntity<HttpHeaders> update(@PathVariable UUID articleId, @RequestBody ArticleRequestDto articleDto) {
@@ -55,4 +60,9 @@ public class ArticleResource {
         return ResponseEntity.ok(articleService.search(title, category, state));
     }
 
+
+    @GetMapping("{userId}/search")
+    ResponseEntity<List<ArticleResponseDto>> search(@RequestParam(required = false) String title, @RequestParam(required = false) Category category, @RequestParam(required = false) State state, @PathVariable UUID userId) {
+        return ResponseEntity.ok(articleService.search(title, category, state, userId));
+    }
 }

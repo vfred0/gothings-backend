@@ -1,6 +1,7 @@
 package com.gothings.api.dtos.article;
 
 import com.gothings.data.enums.Category;
+import com.gothings.data.enums.Gender;
 import com.gothings.data.enums.State;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -23,6 +24,8 @@ public class ArticleRequestDto {
 
     @NotNull
     private State state;
+
+    private Gender gender;
 
     @NotNull
     private Set<String> images;
