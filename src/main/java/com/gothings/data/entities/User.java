@@ -51,4 +51,22 @@ public class User extends Auditing {
     @OneToMany(mappedBy = "user")
     Set<Article> articles = new HashSet<>();
 
+    public String getPhoto() {
+        return getValue(photo);
+    }
+
+    public String getNumberWhatsapp() {
+        return getValue(numberWhatsapp);
+    }
+
+    public String getAbout() {
+        return getValue(about);
+    }
+
+    private String getValue(String value) {
+        if (value == null) {
+            return "";
+        }
+        return value;
+    }
 }
