@@ -41,6 +41,9 @@ public class JwtAccessTokenService {
                 .claim("id", user.getId())
                 .claim("names", user.getNames())
                 .claim("scope", getRoles(userDetails))
+                .claim("photo", user.getPhoto())
+                .claim("numberWhatsapp", user.getNumberWhatsapp())
+                .claim("about", user.getAbout())
                 .issuedAt(Instant.now())
                 .expiresAt(Instant.now().plus(AMOUNT_TO_ADD, ChronoUnit.DAYS))
                 .build();
