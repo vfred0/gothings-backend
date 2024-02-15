@@ -63,24 +63,20 @@ public class AuthService {
     }
 
     private void saveUserAccount(RegisterRequestDto registerRequestDto) {
-        Set<UserRole> userRoles = getUserRoles(registerRequestDto);
+        Set<UserRole> roleAuthenticated = Set.of(getRoleAuthenticated());
         this.accountRepository.save(
                 UserAccount.builder()
                         .username(registerRequestDto.username())
                         .password(registerRequestDto.password())
                         .password(passwordEncoder.encode(registerRequestDto.password()))
-                        .roles(userRoles)
+                        .roles(roleAuthenticated)
                         .build()
         );
     }
 
-    private Set<UserRole> getUserRoles(RegisterRequestDto registerRequestDto) {
-        Set<UserRole> userRoles = new HashSet<>();
-        //for (Role role : registerRequestDto.roles()) {
-            UserRole userRole = this.userRoleRepository.findByName(Role.ROLE_AUTHENTICATED)
-                    .orElseThrow(() -> new NotFoundException(MessageException.ROLE_NOT_FOUND));
-            userRoles.add(userRole);
-        return userRoles;
+    private UserRole getRoleAuthenticated() {
+        return this.userRoleRepository.findByName(Role.ROLE_AUTHENTICATED)
+                .orElseThrow(() -> new NotFoundException(MessageException.ROLE_NOT_FOUND));
     }
 
     private void checkIfUsernameExists(String username) {
