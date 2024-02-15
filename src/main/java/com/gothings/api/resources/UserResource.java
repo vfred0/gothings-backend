@@ -5,7 +5,6 @@ import com.gothings.api.dtos.article.ArticleResponseDto;
 import com.gothings.api.dtos.auth.RegisterRequestDto;
 import com.gothings.services.user.IUserService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,6 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@Slf4j
 @RequestMapping("/api/v1/users")
 public class UserResource {
 
@@ -28,14 +26,19 @@ public class UserResource {
         return new ResponseEntity<>(HttpHeader.getHttpHeaders(userId), HttpStatus.CREATED);
     }
 
+    @GetMapping
+    ResponseEntity<List<UserDto>> findAll() {
+        return ResponseEntity.ok(userService.findAll());
+    }
+
     @GetMapping("{id}/articles")
     ResponseEntity<List<ArticleResponseDto>> getArticlesByUserId(@PathVariable UUID id) {
         return ResponseEntity.ok(userService.getArticlesByUserId(id));
     }
 
     @PutMapping("{userId}")
-    ResponseEntity<HttpHeaders> update(@PathVariable UUID userId, @RequestBody RegisterRequestDto registerRequestDto) {
-        UUID articleId = userService.update(userId, registerRequestDto);
+    ResponseEntity<HttpHeaders> update(@PathVariable UUID userId, @RequestBody UserDto userDto) {
+        UUID articleId = userService.update(userId, userDto);
         return new ResponseEntity<>(HttpHeader.getHttpHeaders(articleId), HttpStatus.OK);
     }
 

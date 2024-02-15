@@ -12,4 +12,8 @@ import java.util.UUID;
 public interface IUserService extends ICrudService<RegisterRequestDto, UserDto, UUID> {
 
     List<ArticleResponseDto> getArticlesByUserId(UUID id);
+
+    UUID update(UUID userId, UserDto userDto);
+
+    List<UserDto> findAll();
 }
