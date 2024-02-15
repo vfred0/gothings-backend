@@ -1,5 +1,6 @@
 package com.gothings.data.entities.identity;
 
+import com.gothings.data.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -40,4 +41,14 @@ public class UserAccount {
                     @JoinColumn(name = "role_id", referencedColumnName = "id")
             })
     Set<UserRole> roles = new HashSet<>();
+
+    public void addRole(UserRole userRole) {
+        roles.add(userRole);
+    }
+
+    public void removeRoles(Role[] roles) {
+        for (Role role : roles) {
+            this.roles.removeIf(userRole -> userRole.equalsByRole(role));
+        }
+    }
 }
