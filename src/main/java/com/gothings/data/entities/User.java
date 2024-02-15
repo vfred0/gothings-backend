@@ -28,8 +28,9 @@ public class User extends Auditing {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID id;
 
+    @Builder.Default
     @Column(columnDefinition = "TEXT DEFAULT ''")
-    String photo;
+    String photo = "";
 
     @Size(max = 15)
     @Column(nullable = false, length = 15)
