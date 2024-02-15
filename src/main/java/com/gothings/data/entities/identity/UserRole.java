@@ -30,4 +30,8 @@ public class UserRole implements GrantedAuthority {
     public String getAuthority() {
         return this.name.name();
     }
+
+    public boolean equalsByRole(Role role) {
+        return this.name.equals(role);
+    }
 }
